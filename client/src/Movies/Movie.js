@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
+import EditForm from '../components/EditForm'
 export default class Movie extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie: null
+      movie: null,
+      isEditing: false
     };
   }
 
@@ -31,17 +33,33 @@ export default class Movie extends React.Component {
     addToSavedList(this.state.movie);
   };
 
+  editMovie = () => {
+    this.setState({
+      ...this.state,
+      isEditing: !this.state.isEditing
+    })
+    console.log(this.state.isEditing)
+  }
+
   render() {
     if (!this.state.movie) {
       return <div>Loading movie information...</div>;
     }
 
     return (
+      <div>
+
+      
       <div className="save-wrapper">
         <MovieCard movie={this.state.movie} />
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
+        <div className="save-button" style={{marginTop: '8%'}} onClick={this.editMovie}>
+          Edit
+        </div>
+      </div>
+      {this.state.isEditing && <EditForm theMovie={this.state.movie}/>}
       </div>
     );
   }

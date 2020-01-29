@@ -35,11 +35,12 @@ export default class Movie extends React.Component {
   };
 
   editMovie = () => {
-    this.setState({
-      ...this.state,
-      isEditing: !this.state.isEditing
-    })
-    console.log(this.state.isEditing)
+    // this.setState({
+    //   ...this.state,
+    //   isEditing: !this.state.isEditing
+    // })
+    // console.log(this.state.isEditing)
+    this.props.history.push(`/update-movie/${this.state.movie.id}`)
   }
 
   deleteMovie = () => {
@@ -69,7 +70,7 @@ export default class Movie extends React.Component {
           Delete
         </div>
       </div>
-      {this.state.isEditing && <EditForm theMovie={this.state.movie}/>}
+      {/* {this.state.isEditing && <EditForm theMovie={this.state.movie}/>} */}
       </div>
     );
   }

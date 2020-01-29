@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import EditForm from '../components/EditForm'
+
 export default class Movie extends React.Component {
   constructor(props) {
     super(props);
@@ -41,6 +42,12 @@ export default class Movie extends React.Component {
     console.log(this.state.isEditing)
   }
 
+  deleteMovie = () => {
+    axios.delete(`http://localhost:5000/api/movies/${this.state.movie.id}`)
+      .then(res=>this.props.history.push('/'))
+      .catch(err=>console.log(err))
+  }
+
   render() {
     if (!this.state.movie) {
       return <div>Loading movie information...</div>;
@@ -57,6 +64,9 @@ export default class Movie extends React.Component {
         </div>
         <div className="save-button" style={{marginTop: '8%'}} onClick={this.editMovie}>
           Edit
+        </div>
+        <div className="save-button" style={{marginTop: '16%'}} onClick={this.deleteMovie}>
+          Delete
         </div>
       </div>
       {this.state.isEditing && <EditForm theMovie={this.state.movie}/>}
